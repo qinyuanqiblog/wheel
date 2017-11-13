@@ -26,18 +26,24 @@
     </style>
 
     <body>
+        <div>
+            原图
+        </div>
+        <img src="img/1.png" alt="">
+        <div>
+            canvas 处理裁剪后的图
+        </div>
+        <canvas id=""></canvas>
+        <div>
+            最终的效果图
+        </div>
     </body>
 
     <script>
         var body = document.querySelector('body');
-        var img = document.createElement('img');
-        var canvas = document.createElement('canvas');
+        var img = document.querySelector('img');
+        var canvas = document.querySelector('canvas');
         var ctx = canvas.getContext('2d');
-
-        img.src = '1.png';
-        body.appendChild(img);
-        body.appendChild(canvas);
-
 
         img.addEventListener('load', function() {
             var imgWidth = img.offsetWidth;
