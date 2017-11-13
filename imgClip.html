@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+        }
+
+        .img {
+            width: 200px;
+            height: 200px;
+        }
+
+        canvas {
+            border: 1px solid red;
+        }
+    </style>
+
+    <body>
+    </body>
+
+    <script>
+        var body = document.querySelector('body');
+        var img = document.createElement('img');
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+
+        img.src = '1.png';
+        body.appendChild(img);
+        body.appendChild(canvas);
+
+
+        img.addEventListener('load', function() {
+            var imgWidth = img.offsetWidth;
+            var imgHeight = img.offsetHeight;
+            canvas.setAttribute('width', imgHeight)
+            canvas.setAttribute('height', imgHeight)
+            var sx = (imgWidth - imgHeight) / 2;
+            ctx.drawImage(img, sx, 0, imgHeight, imgHeight, 0, 0, imgHeight, imgHeight);
+
+            var src = _base64ToBlob(canvas.toDataURL());
+            var newImage = new Image();
+            newImage.className = 'img';
+            newImage.src = src;
+            body.appendChild(newImage);
+        })
+
+        /**
+         * base64编码数据转成blob对象
+         * @param dataURL {object}        一个基于Base64编码编码的数据URI对象
+         * @return result {blob object}   返回一个可以直接浏览的本地图片地址
+         */
+        function _base64ToBlob(dataURL) {
+            //获取源数据类型
+            var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            //取到base64转码后的源数据
+            var str = dataURL.split(',')[1];
+            //base64解码
+            str = window.atob(str);
+            //使用一个 Uint8Array 来存放数据
+            var utf8Array = new Uint8Array(str.length);
+            for (var i = 0; i < str.length; i++) {
+                utf8Array[i] = str.charCodeAt(i);
+            }
+            //转换成一个blob对象
+            var blob = new Blob([utf8Array], {
+                type: mimeString
+            });
+            //生成可以直接访问的本地地址
+            var src = URL.createObjectURL(blob);
+            return src;
+        }
+    </script>
+
+</html>
