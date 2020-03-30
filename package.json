@@ -1,6 +1,6 @@
 {
   "name": "wheel",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Daily by the wheel hole to remember",
   "main": "commitlint.config.js",
   "config": {
