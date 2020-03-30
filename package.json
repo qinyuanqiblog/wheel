@@ -1,0 +1,19 @@
+{
+  "name": "wheel",
+  "version": "1.0.0",
+  "description": "Daily by the wheel hole to remember",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qinyuanqiblog/wheel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qinyuanqiblog/wheel/issues"
+  },
+  "homepage": "https://github.com/qinyuanqiblog/wheel#readme"
+}
