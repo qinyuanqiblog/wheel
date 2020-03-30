@@ -1,6 +1,6 @@
 {
   "name": "wheel",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Daily by the wheel hole to remember",
   "main": "commitlint.config.js",
   "config": {
@@ -21,7 +21,7 @@
     "standard-version": "^7.1.0"
   },
   "scripts": {
-    "release": "standard-version --infile docs/CHANGELOG"
+    "release": "standard-version --infile docs/CHANGELOG.md"
   },
   "repository": {
     "type": "git",
