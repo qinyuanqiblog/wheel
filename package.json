@@ -1,6 +1,6 @@
 {
   "name": "wheel",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "description": "Daily by the wheel hole to remember",
   "main": "commitlint.config.js",
   "config": {
@@ -21,10 +21,7 @@
     "standard-version": "^7.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "standard-version",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md && npm run changeissueurl",
-    "changeissueurl": "replace 'https://github.com/myproject/issues/' 'https://redmine.example.com/' CHANGELOG.md"
+    "release": "standard-version --infile docs/CHANGELOG"
   },
   "repository": {
     "type": "git",
