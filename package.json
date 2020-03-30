@@ -21,12 +21,7 @@
     "standard-version": "^7.1.0"
   },
   "scripts": {
-    "release": "standard-version --infile docs/CHANGELOG.md "
-  },
-  "standard-version": {
-    "skip": {
-      "tag": true
-    }
+    "release": "standard-version --infile docs/CHANGELOG.md --skip.tag "
   },
   "repository": {
     "type": "git",
