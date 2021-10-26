@@ -1,3 +1,6 @@
-.body{
-  background:red;
+.impowerBox  .title,.impowerBox  .info{
+ display:none;
+}
+.impowerBox  .qrcode{
+ width:100px;
 }
