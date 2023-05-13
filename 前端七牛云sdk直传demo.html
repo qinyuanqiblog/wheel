@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>前端使用七牛云sdk分配上传到七牛云的例子</title>
+</head>
+<body>
+  <input type="file" id="qqq" />
+  <video controls id="player" src="https://file.wimift.com/lkl3xQotfGNqV2IMAM-WwJyHHuwj"></video>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/qiniu-js/3.4.1/qiniu.min.js"></script>
+ <script>
+  var inputElement = document.querySelector('#qqq')
+  var player = document.querySelector('#player')
+  inputElement.addEventListener('change', function (e){
+
+   const currentFile =  e.target.files[0]
+   const fileName = new Date().getTime() + Math.floor(Math.random() *999999) + currentFile.name
+   const token = "和后台交互得到七牛云的上传token"
+   const putExtra = {
+    fname: currentFile.name,
+    mimeType: currentFile.type,
+    // customVars: { },
+    // metadata: { },
+   }
+    //  开始七牛云上传
+   const observable = qiniu.upload(currentFile, fileName, token, putExtra)
+  
+  //  接收回调信息
+   var observer = {
+      next(res){
+        console.log('next',res)
+      },
+      error(err){
+        console.log('error', err)
+      }, 
+      complete(res){
+      qiniu.getUploadUrl(qiniuConfig, token).then(res => {
+      console.log('成功的url', res)
+      })
+      debugger
+        console.log('complete',res)
+      }
+    }
+
+   //开始七牛云上传文件
+   const subscription = observable.subscribe(observer)
+
+    if (window.FileReader) { // 判断浏览器中有没有FileReader，毕竟现在不是所有浏览器都有FileReader
+     reader = new FileReader(); // 实例化FileReader
+     reader.onload = (event) => { // 设置读取成功以后执行的方法
+      // player.src = _base64ToBlob(event.target.result); // 前面说过，成功返回的数据再result属性中，然后将这个设置成img标签的src地址
+      player.src = event.target.result; // 前面说过，成功返回的数据再result属性中，然后将这个设置成img标签的src地址
+      
+     }
+   } else { // 没有FileReader的弹出警告然后返回
+     alert('你的先浏览器没有FileReader，不能这么干！');
+     return;
+   }
+   const file = e.target.files[0]; // 拿到选择的文件信息
+   reader.readAsDataURL(file); // 
+  })
+
+  inputElement.value = ''
+
+
+   /**
+     * base64编码数据转成blob对象
+     * @param dataURL {object}        一个基于Base64编码编码的数据URI对象
+     * @return result {blob object}   返回一个可以直接浏览的本地图片地址 
+     */
+     function _base64ToBlob(dataURL) {
+        //获取源数据类型
+        var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+        //取到base64转码后的源数据
+        var str = dataURL.split(',')[1];
+        //base64解码
+        str = window.atob(str);
+        //使用一个 Uint8Array 来存放数据
+        var utf8Array = new Uint8Array(str.length);
+        for (var i = 0; i < str.length; i++) {
+            utf8Array[i] = str.charCodeAt(i);
+        }
+        //转换成一个blob对象
+        var blob = new Blob([utf8Array], {
+            type: mimeString
+        });
+        //生成可以直接访问的本地地址
+        var src = URL.createObjectURL(blob);
+        return src;
+    }
+
+ </script>
+</html>
