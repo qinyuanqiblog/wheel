@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+ <style>
+  video {
+   width:200px;
+   height: 200px;
+   margin-bottom: 20px;
+  }
+  li{
+   display: inline-block;
+   margin-top: 10px;
+   margin-right: 10px;
+  }
+</style>
+</head>
+
+<body>
+ <ul id="ul"></ul>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+<!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+<script src="https://cdn.bootcdn.net/ajax/libs/flv.js/1.6.2/flv.js"></script>
+<script>
+ const list = [
+  {
+   type: 'wmv',
+   url: 'https://testfile.wimift.com/1684115073486-963133-mda-mfuf163rfmkn36i7.wmv',
+  },
+  {
+   type: 'avi',
+   url: 'https://testfile.wimift.com/1684115011287-94693-mda-mfuf163rfmkn36i7.avi',
+  },
+  {
+   type: 'flv',
+   url: 'https://testfile.wimift.com/1684114902592-163304-mda-mfuf163rfmkn36i7.flv',
+  },
+  {
+   type: 'mp4',
+   url: 'https://file.wimift.com/f0f112be1f7942d1b9080b6230218eb11.mp4',
+  },
+  {
+   type: 'ogg',
+   url: 'https://testfile.wimift.com/1684116003655-881694-mda-mfuf163rfmkn36i7.Ogg',
+  },
+ ]
+ $(function($) {
+  if (flvjs.isSupported()) {
+  const ul = $('#ul')
+  for (let i = 0; i < list.length; i++) {
+   const element = list[i];
+   const li = `<li>
+      <div>文件名是${element.type}</div>
+      <video controls src="${element.url}" data-url=${element.url} data-type=${element.type}></video>
+    </li>`
+    
+   ul.append(li)
+  }
+  $('video').each((i,e)=>{
+   var flvPlayer = flvjs.createPlayer({
+       type: $(e).data('type'),
+       url: $(e).data('url'),
+   });
+   flvPlayer.attachMediaElement(e);
+   flvPlayer.load();
+   flvPlayer.play();
+  })
+}
+});
+
+</script>
+</html>
